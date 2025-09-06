@@ -1,0 +1,132 @@
+<% layout("/layout/boilerplate") -%>
+<body class="bg-light">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4">
+          
+          <!-- Card Header -->
+          <div class="card-header text-white text-center py-4 rounded-top-4" 
+               style="background: linear-gradient(135deg, #1F1F1F, #4A4B4B);">
+            <h3 class="mb-0 fw-bold">Edit Your Estate</h3>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body p-4">
+            <form method="POST" 
+                  action="/listing/<%= listing._id %>?_method=PUT" 
+                  class="needs-validation" 
+                  novalidate 
+                  enctype="multipart/form-data">
+
+              <!-- Title -->
+              <div class="mb-3">
+                <label for="title" class="form-label fw-semibold">Title</label>
+                <input type="text" 
+                       name="listing[title]" 
+                       value="<%= listing.title  %>" 
+                       class="form-control rounded-3 shadow-sm" 
+                       required>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-3">
+                <label for="description" class="form-label fw-semibold">Description</label>
+                <textarea name="listing[description]" 
+                          rows="4" 
+                          class="form-control rounded-3 shadow-sm" 
+                          required><%= listing.description %></textarea>
+                <div class="invalid-feedback">Please enter a description</div>
+              </div>
+
+              <!-- Original Image -->
+              <div class="mb-4 text-center">
+                <p class="fw-semibold">Original Image</p>
+                <img src="<%= originalImageUrl %>" 
+                     alt="Listing Image" 
+                     class="img-fluid rounded-3 shadow-sm" 
+                     style="max-height: 250px; object-fit: cover;">
+              </div>
+
+              <!-- Upload New Image -->
+              <div class="mb-4">
+                <label for="image" class="form-label fw-semibold">Upload New Image</label>
+                <input type="file" 
+                       name="listing[image]" 
+                       class="form-control rounded-3 shadow-sm" 
+                       required>
+              </div>
+
+              <!-- Price & Country -->
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="number" class="form-label fw-semibold">Price</label>
+                  <input type="number" 
+                         name="listing[price]"  
+                         value="<%= listing.price  %>" 
+                         class="form-control rounded-3 shadow-sm" 
+                         required>
+                  <div class="invalid-feedback">Enter a valid price</div>
+                </div>
+                <div class="col-md-8 mb-3">
+                  <label for="country" class="form-label fw-semibold">Country</label>
+                  <input type="text" 
+                         name="listing[country]"  
+                         value="<%= listing.country  %>" 
+                         class="form-control rounded-3 shadow-sm" 
+                         required>
+                  <div class="invalid-feedback">Enter a valid country</div>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="mb-3">
+                <label for="location" class="form-label fw-semibold">Location</label>
+                <input type="text" 
+                       name="listing[location]"  
+                       value="<%= listing.location  %>" 
+                       class="form-control rounded-3 shadow-sm" 
+                       required>
+                <div class="invalid-feedback">Enter a valid location</div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid mt-4">
+                <button class="btn btn-lg rounded-3 shadow-3d">
+                   Save Changes
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Button Styling -->
+  <style>
+    .shadow-3d {
+      background: linear-gradient(145deg, #1F1F1F, #4A4B4B);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 6px 6px 12px #0f0f0f, -6px -6px 12px #4a4b4b;
+      transition: all 0.25s ease-in-out;
+    }
+    .shadow-3d:hover {
+      background: linear-gradient(145deg, #4A4B4B, #1F1F1F);
+      transform: translateY(-3px);
+      box-shadow: 8px 8px 16px #0f0f0f, -8px -8px 16px #6f6f6f;
+    }
+    .shadow-3d:active {
+      transform: translateY(1px);
+      box-shadow: inset 4px 4px 8px #0f0f0f, inset -4px -4px 8px #4a4b4b;
+    }
+  </style>
+</body>

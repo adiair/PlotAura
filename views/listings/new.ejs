@@ -1,0 +1,130 @@
+<% layout("/layout/boilerplate") -%>
+<body class="bg-light">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4">
+
+          <!-- Card Header -->
+          <div class="card-header text-white text-center py-4 rounded-top-4" 
+               style="background: linear-gradient(135deg, #1F1F1F, #4A4B4B);">
+            <h3 class="mb-0 fw-bold">Create a New Estate</h3>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body p-4">
+            <form method="POST" action="/listing" class="needs-validation" novalidate enctype="multipart/form-data">
+
+              <!-- Title -->
+              <div class="mb-3">
+                <label for="title" class="form-label fw-semibold">Title</label>
+                <input type="text" 
+                       name="listing[title]" 
+                       placeholder="Add a catchy title" 
+                       class="form-control rounded-3 shadow-sm" 
+                       required>
+                <div class="valid-feedback">Title looks good</div>
+              </div>
+
+              <!-- Description -->
+              <div class="mb-3">
+                <label for="description" class="form-label fw-semibold">Description</label>
+                <textarea name="listing[description]" 
+                          rows="4" 
+                          placeholder="Describe your estate..." 
+                          class="form-control rounded-3 shadow-sm" 
+                          required></textarea>
+                <div class="invalid-feedback">Please enter a short description</div>
+              </div>
+
+              <!-- Upload Image -->
+              <div class="mb-4">
+                <label for="image" class="form-label fw-semibold">Upload Listing Image</label>
+                <input type="file" 
+                       name="listing[image]" 
+                       class="form-control rounded-3 shadow-sm" 
+                       required>
+              </div>
+
+              <!-- Price & Country -->
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="number" class="form-label fw-semibold">Price</label>
+                  <input type="text" 
+                         name="listing[price]" 
+                         placeholder="1200" 
+                         class="form-control rounded-3 shadow-sm" 
+                         required>
+                  <div class="invalid-feedback">Price should be valid</div>
+                </div>
+                <div class="col-md-8 mb-3">
+                  <label for="country" class="form-label fw-semibold">Country</label>
+                  <input type="text" 
+                         name="listing[country]" 
+                         placeholder="India" 
+                         class="form-control rounded-3 shadow-sm" 
+                         required>
+                  <div class="invalid-feedback">Country name should be valid</div>
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="mb-3">
+                <label for="location" class="form-label fw-semibold">Location</label>
+                <input type="text" 
+                       name="listing[location]" 
+                       placeholder="Madhya Pradesh, Bhopal" 
+                       class="form-control rounded-3 shadow-sm" 
+                       required>
+                <div class="invalid-feedback">Location should be valid</div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid mt-4">
+                <button class="btn btn-lg rounded-3 shadow-sm add-btn">
+                 Add Estate
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #F5F5F5;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .card {
+      background-color: #FFFFFF;
+    }
+
+    /* 3D Modern Button */
+    .add-btn {
+      background: linear-gradient(145deg, #1F1F1F, #4A4B4B);
+      color: #fff;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      border: none;
+    }
+
+    .add-btn:hover {
+      background: linear-gradient(145deg, #4A4B4B, #1F1F1F);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      color: #F5F5F5;
+    }
+
+    .add-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+  </style>
+</body>

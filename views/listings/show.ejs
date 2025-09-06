@@ -1,0 +1,114 @@
+<% layout("/layout/boilerplate") -%> 
+<script>
+    const mapToken = "<%=MAP_TOKEN %>";
+    const listing = <%- JSON.stringify(listing) %>;
+</script>
+
+
+<style>
+.listing-title-glow {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #222;
+  
+}
+</style>
+
+<body class="bg-light">
+    <div class="container mt-4">
+
+        <!-- Title -->
+        <div class="row mb-3">
+           <div class="col-12 col-md-10 offset-md-1 text-center">
+  <h2 class="listing-title-glow"><%= listing.title %></h2>
+</div>
+
+        </div>
+
+        <!-- Listing Card -->
+        <div class="card shadow-lg border-0 rounded-3 col-12 col-md-10 offset-md-1">
+            <img src="<%= listing.image.url %>"
+                 class="card-img-top rounded-top img-fluid listing-img"
+                 style="max-height: 450px; object-fit: cover; width: 100%;"
+                 alt="listing-image">
+            <div class="card-body p-4">
+                <h5 class="text-muted">Owned by <i>@<%= listing.owner.username %></i></h5>
+                <p class="mt-2"><%= listing.description %></p>
+                <p class="fs-5 fw-semibold text-success">
+                    ₹ <%= listing.price.toLocaleString("en-IN") %>
+                </p>
+                <p class="mb-1">
+                    <i class="bi bi-geo-alt-fill"></i> <%= listing.location %>, <%= listing.country %>
+                </p>
+            </div>
+        </div>
+
+        <!-- Edit/Delete Buttons -->
+        <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
+        <div class="d-flex justify-content-center flex-wrap gap-3 my-3">
+            <a href="/listing/<%= listing._id  %>/edit" class="btn btn-dark px-4">Edit</a>
+            <form method="POST" action="/listing/<%= listing._id  %>?_method=DELETE">
+                <button class="btn btn-outline-danger px-4">Delete</button>
+            </form>
+        </div>
+        <% } %>
+
+        <!-- Review Form -->
+        <% if(currUser){ %>
+        <div class="col-12 col-md-10 offset-md-1 my-4 p-4 bg-white rounded shadow-sm">
+            <h4 class="mb-3">Leave a Review</h4>
+            <form action="/listing/<%=listing._id%>/reviews" method="POST" novalidate class="needs-validation">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Rating</label>
+                    <fieldset class="starability-slot">
+                        <% for(let i=1; i<=5; i++){ %>
+                            <input type="radio" id="rate<%= i %>" name="review[rating]" value="<%= i %>" />
+                            <label for="rate<%= i %>"><%= i %></label>
+                        <% } %>
+                    </fieldset>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label fw-semibold">Comments</label>
+                    <textarea name="review[comment]" id="comment" rows="4" class="form-control" required></textarea>
+                    <div class="invalid-feedback">Please add some comments.</div>
+                </div>
+                <button class="btn btn-primary px-4">Submit</button>
+            </form>
+        </div>
+        <% } %>
+
+        <!-- Reviews Section -->
+        <% if(listing.reviews.length > 0){ %>
+        <div class="col-12 col-md-10 offset-md-1 my-4">
+            <h4 class="mb-3">All Reviews</h4>
+            <div class="row g-3">
+                <% for(review of listing.reviews){ %>
+                <div class="col-12 col-sm-6">
+                    <div class="card border-0 shadow-sm h-100 p-4">
+                        <div class="card-body">
+                            <h6 class="fw-bold">@<%=review.author.username%></h6>
+                            <p class="text-dark mb-1">⭐ <%= review.rating %>/5</p>
+                            <p><%= review.comment %></p>
+                            <form action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <% } %>
+
+        <!-- Map -->
+        <div class="col-12 col-md-10 offset-md-1 text-center my-4 border border-dark p-4">
+           <h4 class="mb-3 fw-bold text-dark border-bottom pb-2 d-inline-block">
+  🗺️ Discover the Spot
+</h4>
+            <div id="map" class="rounded shadow" style="height: 400px; width: 100%;"></div>
+        </div>
+
+    </div>
+</body>
+
+<script src="/js/map.js"></script>
