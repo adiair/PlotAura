@@ -21,8 +21,12 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+<<<<<<< HEAD
 const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 const SECRET = process.env.SECRET || "dev_session_secret_change_me";
+=======
+const dbUrl = process.env.ATLASDB_URL;
+>>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
 
 main().then(()=>{
     console.log("connected to DB");
@@ -45,17 +49,29 @@ app.use(express.static(path.join(__dirname, "/public")));
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
+<<<<<<< HEAD
         secret: SECRET,
     },
     touchAfter: 24 * 3600,
 });
 store.on("error", (err)=>{
+=======
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 3600,
+});
+store.on("error", ()=>{
+>>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
     console.log("ERROR IN MONGO SESSION STORE", err);
 })
 
 const sessionOption = {
     store,
+<<<<<<< HEAD
     secret: SECRET,
+=======
+    secret: process.env.SECRET,
+>>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
     resave: false,
     saveUninitialized: true,
     cookie: {

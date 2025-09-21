@@ -2,12 +2,19 @@
   "engines": {
     "node": "v22.13.1"
   },
+<<<<<<< HEAD
   "name": "paotaura",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+=======
+  "name": "majorproject",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+>>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -33,8 +40,11 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0"
+<<<<<<< HEAD
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
+=======
+>>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
   }
 }
