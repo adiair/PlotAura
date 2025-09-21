@@ -1,280 +1,281 @@
 <% layout("/layout/boilerplate") -%>
-  <style>
-    /* ---------------- General ---------------- */
-    body {
-      background: #f9fafb;
-      color: #111827;
-      font-family: "Inter", sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
 
-    /* ---------------- Banner ---------------- */
-    .banner-img {
-      max-height: 420px;
-      object-fit: cover;
-      border-radius: 0 0 1rem 1rem;
-    }
+<style>
+  /* ---------------- General ---------------- */
+  body {
+    background: #f9fafb;
+    color: #111827;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
 
-    /* ---------------- Section Heading ---------------- */
-    .section-heading h3 {
-      font-size: 2rem;
-      color: #111827;
-    }
+  a {
+    text-decoration: none;
+  }
 
-    .section-heading p {
-      color: #6b7280;
-      font-size: 1rem;
-    }
+  /* ---------------- Banner ---------------- */
+  .banner-img {
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
 
-    /* ---------------- Filters Section ---------------- */
+  /* ---------------- Section Heading ---------------- */
+  .section-heading h3 {
+    font-size: 2rem;
+    color: #111827;
+  }
+
+  .section-heading p {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  /* ---------------- Filters Section ---------------- */
+  #filters {
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-bottom: 1px solid #e5e7eb;
+    background: #ffffff;
+    border-radius: 0.75rem;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter {
+    flex: 0 0 auto;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: #f3f4f6;
+    color: #374151;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+  }
+
+  .filter:hover {
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    transform: translateY(-2px);
+  }
+
+  .filter i {
+    font-size: 1rem;
+  }
+
+  /* ---------------- Tax Toggle ---------------- */
+  .tax-toggle {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    background: #f3f4f6;
+    font-size: 0.85rem;
+    color: #374151;
+    margin-left: auto;
+    transition: all 0.3s ease;
+  }
+
+  .tax-toggle:hover {
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* ---------------- Listings ---------------- */
+  .listing-card {
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+  }
+
+  .listing-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+
+  .listing-card img {
+    object-fit: cover;
+    height: 16rem;
+    width: 100%;
+    transition: transform 0.4s ease;
+  }
+
+  .listing-card:hover img {
+    transform: scale(1.05);
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #6b7280;
+  }
+
+  .card-text b {
+    font-size: 1.1rem;
+    color: #111827;
+  }
+
+  .tax-info {
+    display: none;
+    font-size: 0.85rem;
+    color: #9ca3af;
+  }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 768px) {
     #filters {
-      display: flex;
-      gap: 0.8rem;
-      padding: 1rem 1.5rem;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-bottom: 1px solid #e5e7eb;
-      background: #ffffff;
-      border-radius: 0.75rem;
-      margin: 0 auto;
-      max-width: 90%;
-    }
-
-    #filters::-webkit-scrollbar {
-      display: none;
+      gap: 0.6rem;
+      padding: 0.6rem 1rem;
     }
 
     .filter {
-      flex: 0 0 auto;
-      padding: 0.5rem 1rem;
-      border-radius: 9999px;
-      background: #f3f4f6;
-      color: #374151;
-      font-size: 0.9rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.3s ease;
-    }
-
-    .filter:hover {
-      background: #2563eb;
-      color: #fff;
-      cursor: pointer;
-      transform: translateY(-2px);
-    }
-
-    .filter i {
-      font-size: 1rem;
-    }
-
-    /* ---------------- Tax Toggle ---------------- */
-    .tax-toggle {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      padding: 0.4rem 1rem;
-      border-radius: 9999px;
-      background: #f3f4f6;
-      font-size: 0.85rem;
-      color: #374151;
-      margin-left: auto;
-    }
-
-    .tax-toggle:hover {
-      background: #2563eb;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    /* ---------------- Listings ---------------- */
-    .listing-card {
-      border-radius: 1rem;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid #e5e7eb;
-      background: #ffffff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      margin-bottom: 1.5rem;
-    }
-
-    .listing-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
     }
 
     .listing-card img {
-      object-fit: cover;
-      height: 16rem;
-      transition: transform 0.4s ease;
+      height: 12rem;
     }
+  }
 
-    .listing-card:hover img {
-      transform: scale(1.05);
-    }
+  /* ---------------- Features ---------------- */
+  .feature-card {
+    background: #ffffff;
+    border-radius: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    padding: 2rem 1rem;
+  }
 
-    .card-body {
-      padding: 1rem;
-    }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
 
-    .card-text {
-      font-size: 0.95rem;
-      color: #6b7280;
-    }
+  .feature-card i {
+    color: #2563eb;
+  }
+</style>
 
-    .card-text b {
-      font-size: 1.1rem;
-      color: #111827;
-    }
+<!-- ---------------- Banner ---------------- -->
+<div class="container-fluid banner position-relative p-0 mt-2">
+  <img src="/image/Screenshot (143).png" alt="SkyFlow" class="w-100 banner-img">
+</div>
 
-    .tax-info {
-      display: none;
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
+<!-- ---------------- Section Heading ---------------- -->
+<div class="section-heading text-center mt-5">
+  <h3 class="fw-bold">Collection</h3>
+  <p class="mt-2">Explore our curated listings of homes, apartments, and villas.</p>
+</div>
 
-    /* ---------------- Responsive ---------------- */
-    @media (max-width: 768px) {
-      #filters {
-        gap: 0.6rem;
-        padding: 0.6rem 1rem;
-      }
+<!-- ---------------- Filters ---------------- -->
+<div id="filters" class="mt-4">
+  <div class="filter"><i class="fa-solid fa-mountain-city"></i> Iconic Cities</div>
+  <div class="filter"><i class="fa-solid fa-person-swimming"></i> Pools</div>
+  <div class="filter"><i class="fa-solid fa-campground"></i> Camping</div>
+  <div class="filter"><i class="fa-solid fa-umbrella-beach"></i> Beach</div>
+  <div class="filter"><i class="fa-solid fa-house-chimney-window"></i> Cabins</div>
+  <div class="filter"><i class="fa-brands fa-fort-awesome"></i> Castles</div>
+  <div class="filter"><i class="fa-solid fa-snowflake"></i> Winter Escapes</div>
+  <div class="filter"><i class="fa-solid fa-tree"></i> Nature Retreats</div>
 
-      .filter {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.8rem;
-      }
-
-      .listing-card img {
-        height: 12rem;
-      }
-    }
-
-    .feature-card {
-      background: #ffffff;
-      border-radius: 1rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-  </style>
-
-  <!-- ---------------- Banner ---------------- -->
-  <div class="container-fluid banner position-relative p-0 mt-2">
-    <img src="/image/Screenshot (143).png" alt="SkyFlow" class="w-100 banner-img">
-  </div>
-
-  <!-- ---------------- Section Heading ---------------- -->
-  <div class="section-heading text-center mt-5">
-    <h3 class="fw-bold">Collection</h3>
-    <p class="mt-2">Explore our curated listings of homes, apartments, and villas.</p>
-  </div>
-
-  <!-- ---------------- Filters ---------------- -->
-  <div id="filters" class="mt-4">
-    <div class="filter"><i class="fa-solid fa-fire"></i> Trending</div>
-    <div class="filter"><i class="fa-solid fa-bed"></i> Room</div>
-    <div class="filter"><i class="fa-solid fa-mountain-city"></i> Iconic cities</div>
-    <div class="filter"><i class="fa-solid fa-person-swimming"></i> Pools</div>
-    <div class="filter"><i class="fa-solid fa-campground"></i> Camping</div>
-    <div class="filter"><i class="fa-solid fa-umbrella-beach"></i> Beach</div>
-    <div class="filter"><i class="fa-solid fa-house-chimney-window"></i> Cabins</div>
-    <div class="filter"><i class="fa-brands fa-fort-awesome"></i> Castles</div>
-
-    <!-- Tax Toggle -->
-    <div class="tax-toggle">
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Show taxes</label>
-      </div>
+  <!-- Tax Toggle -->
+  <div class="tax-toggle">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Show taxes</label>
     </div>
   </div>
+</div>
 
-  <!-- ---------------- Listings ---------------- -->
-  <div class="container mt-4">
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-4">
-      <% for(let listing of allListings){ %>
-        <a href="/listing/<%= listing._id %>" class="listing-link text-decoration-none">
-          <div class="card listing-card h-100">
-            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
-            <div class="card-body">
-              <p class="card-text">
-                <b>
-                  <%= listing.title %>
-                </b><br>
-                &#8377; <%= listing.price.toLocaleString("en-IN") %>/night
-                  <i class="tax-info"> &nbsp; +18% GST</i>
-              </p>
-            </div>
+<!-- ---------------- Listings ---------------- -->
+<div class="container mt-4">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1 g-4">
+    <% for(let listing of allListings){ %>
+      <a href="/listing/<%= listing._id %>" class="listing-link text-decoration-none">
+        <div class="card listing-card h-100">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
+          <div class="card-body">
+            <p class="card-text">
+              <b><%= listing.title %></b><br>
+              &#8377; <%= listing.price.toLocaleString("en-IN") %>/night
+              <i class="tax-info"> &nbsp; +18% GST</i>
+            </p>
           </div>
-        </a>
-        <% } %>
+        </div>
+      </a>
+    <% } %>
+  </div>
+</div>
+
+<!-- ================= Features Section ================= -->
+<div class="container my-5">
+  <h2 class="text-center fw-bold mb-4" style="color:#111827;">Why Choose Us</h2>
+  <p class="text-center mb-5" style="color:#6b7280;">
+    Discover the advantages of using SkyFlow for your real estate journey.
+  </p>
+
+  <div class="row g-4">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+      <div class="feature-card text-center h-100">
+        <i class="fa-solid fa-globe display-5 mb-3"></i>
+        <h5 class="fw-bold mb-2">Global Reach</h5>
+        <p class="text-muted small">Connecting buyers and sellers worldwide with verified listings.</p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+      <div class="feature-card text-center h-100">
+        <i class="fa-solid fa-user-check display-5 mb-3"></i>
+        <h5 class="fw-bold mb-2">Verified Listings</h5>
+        <p class="text-muted small">Every property is carefully verified for safety and reliability.</p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+      <div class="feature-card text-center h-100">
+        <i class="fa-solid fa-lightbulb display-5 mb-3"></i>
+        <h5 class="fw-bold mb-2">Expert Guidance</h5>
+        <p class="text-muted small">Work with experienced agents who know the market inside out.</p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+      <div class="feature-card text-center h-100">
+        <i class="fa-solid fa-shield-alt display-5 mb-3"></i>
+        <h5 class="fw-bold mb-2">Transparent Process</h5>
+        <p class="text-muted small">Clear documentation, fair pricing, and trust you can rely on.</p>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- ================= Features Section ================= -->
-  <div class="container my-5">
-    <h2 class="text-center fw-bold mb-4" style="color:#111827;">Why Choose Us</h2>
-    <p class="text-center mb-5" style="color:#6b7280;">Discover the advantages of using SkyFlow for your real estate
-      journey.</p>
-
-    <div class="row g-4">
-
-      <!-- Feature 1 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="feature-card p-4 text-center h-100">
-          <i class="fa-solid fa-globe display-5 mb-3" style="color:#2563eb;"></i>
-          <h5 class="fw-bold mb-2">Global Reach</h5>
-          <p class="text-muted small">Connecting buyers and sellers across the world with verified property listings.
-          </p>
-        </div>
-      </div>
-
-      <!-- Feature 2 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="feature-card p-4 text-center h-100">
-          <i class="fa-solid fa-user-check display-5 mb-3" style="color:#2563eb;"></i>
-          <h5 class="fw-bold mb-2">Verified Listings</h5>
-          <p class="text-muted small">Every property is carefully verified to ensure safety and reliability.</p>
-        </div>
-      </div>
-
-      <!-- Feature 3 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="feature-card p-4 text-center h-100">
-          <i class="fa-solid fa-lightbulb display-5 mb-3" style="color:#2563eb;"></i>
-          <h5 class="fw-bold mb-2">Expert Guidance</h5>
-          <p class="text-muted small">Work with experienced agents who know the market inside out.</p>
-        </div>
-      </div>
-
-      <!-- Feature 4 -->
-      <div class="col-md-6 col-lg-3">
-        <div class="feature-card p-4 text-center h-100">
-          <i class="fa-solid fa-shield-alt display-5 mb-3" style="color:#2563eb;"></i>
-          <h5 class="fw-bold mb-2">Transparent Process</h5>
-          <p class="text-muted small">Clear documentation, fair pricing, and trust you can rely on.</p>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-
-
-  <script>
-    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-    taxSwitch.addEventListener("click", () => {
-      let taxInfo = document.getElementsByClassName("tax-info");
-      for (let info of taxInfo) {
-        info.style.display = (info.style.display !== "inline") ? "inline" : "none";
-      }
-    });
-  </script>
+<script>
+  // Toggle Tax Info
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (let info of taxInfo) {
+      info.style.display = (info.style.display !== "inline") ? "inline" : "none";
+    }
+  });
+</script>

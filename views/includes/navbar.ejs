@@ -1,36 +1,36 @@
 <style>
-    /* ===== NAVBAR STYLE ===== */
+    /* ===== NAVBAR STYLE LIGHT THEME ===== */
     .navbar-custom {
-        background: linear-gradient(145deg, #1c1c1c, #2a2a2a);
-        padding: 0.8rem 1.5rem;
-        border-radius: 0 0 18px 18px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        background: linear-gradient(145deg, #ffffff, #f1f1f1);
+        padding: 1rem 1.5rem;
+        /* border-radius: 0 0 18px 18px; */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15); /* thick shadow */
         position: sticky;
         top: 0;
         z-index: 1000;
+        /* border-bottom: 2px solid #ccc; */
     }
 
     .navbar-brand {
         font-family: 'Poppins', sans-serif;
         font-weight: 700;
-        font-size: 1.5rem;
-        color: #f5f5f5;
+        font-size: 1.6rem;
+        color: #111;
         letter-spacing: 1px;
-        transform: perspective(400px) rotateX(0deg);
         transition: transform 0.4s ease, color 0.3s ease;
     }
     .navbar-brand:hover {
         transform: perspective(400px) rotateX(12deg);
-        color: #fe424d;
+        color: #ff4d57;
     }
 
     .nav-link {
-        color: #d1d1d1 !important;
+        color: #333 !important;
         font-weight: 500;
         transition: color 0.3s ease, transform 0.3s ease;
     }
     .nav-link:hover {
-        color: #d02a3a !important;
+        color: #ff4d57 !important;
         transform: translateY(-2px);
     }
 
@@ -39,39 +39,42 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #425bfe;
+        background: #ff4d57;
         gap: 10px;
         color: #fff;
         border-radius: 25px;
         padding: 0.5rem 1.5rem;
-        box-shadow: 0 3px 10px rgba(66, 176, 254, 0.4);
-        transition: transform 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 77, 87, 0.3);
+        transition: transform 0.3s ease, background 0.3s ease;
     }
     .search-btn:hover {
         transform: scale(1.05);
-        background: #425bfe;
+        background: #ff6b74;
     }
     .search-input {
         border-radius: 25px;
-        padding: 0.5rem 3rem;
+        padding: 0.5rem 1rem;
         font-size: 0.85rem;
-        border: none;
-        box-shadow: inset 2px 2px 6px rgba(0,0,0,0.4);
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #111;
+        box-shadow: inset 2px 2px 6px rgba(0,0,0,0.05);
     }
 
-    /* ===== SIDEBAR MENU ===== */
+    /* ===== SIDEBAR MENU LIGHT THEME ===== */
     .sidebar {
         position: fixed;
         top: 0;
-        right: -250px;
+        right: -270px;
         height: 100%;
-        width: 250px;
-        background: #1c1c1c;
-        color: white;
+        width: 270px;
+        background: #ffffff;
+        color: #111;
         transition: right 0.4s ease;
         padding: 2rem 1.5rem;
         z-index: 2000;
-        box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+        box-shadow: -4px 0 20px rgba(0,0,0,0.2); /* thick shadow */
+        border-left: 1px solid #ccc;
     }
     .sidebar.open {
         right: 0;
@@ -79,25 +82,25 @@
     .sidebar .nav-link {
         display: block;
         margin: 1rem 0;
-        color: #d1d1d1 !important;
+        color: #333 !important;
+        font-weight: 500;
     }
     .sidebar .nav-link:hover {
-        color: #fe424d !important;
+        color: #ff4d57 !important;
     }
 
     .sidebar-close {
         position: absolute;
         top: 15px;
-        /* right: 20px; */
         font-size: 1.5rem;
-        color: gray;
+        color: #777;
         cursor: pointer;
     }
 
     /* Hamburger Icon */
     .menu-toggle {
         font-size: 1.5rem;
-        color: #f5f5f5;
+        color: #111;
         cursor: pointer;
         border: none;
         background: transparent;
@@ -107,16 +110,16 @@
 <nav class="navbar navbar-expand-md navbar-custom">
     <div class="container-fluid d-flex justify-content-between align-items-center">
        <a class="navbar-brand" href="/listing">
-  <img src="/image/logo.png" alt="Logo" class="img-fluid" style="max-height:45px;">
-</a>
+          <img src="/image/Skyflow.png" alt="Logo" class="img-fluid" style="max-height:50px;">
+       </a>
 
         <!-- Search (Desktop only) -->
        <form class="d-none d-md-flex me-3" role="search" action="/listing" method="GET">
-    <input class="form-control me-2 search-input" type="search" name="q" placeholder="Search Destinations">
-    <button class="btn search-btn" type="submit">
-        Search <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-</form>
+            <input class="form-control me-2 search-input" type="search" name="q" placeholder="Search Destinations">
+            <button class="btn search-btn" type="submit">
+                Search <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
 
         <!-- Desktop Menu -->
         <div class="d-none d-md-flex align-items-center gap-3">
@@ -129,7 +132,6 @@
                 <a class="nav-link" href="/logout">Log out</a>
             <% } %>
         </div>
-
 
         <!-- Hamburger for Mobile -->
         <button class="menu-toggle d-md-none" onclick="toggleSidebar()">
@@ -146,16 +148,16 @@
     <% if(!currUser){ %>
         <a class="nav-link" href="/signup">Sign up</a>
         <a class="nav-link" href="/login">Log in</a>
-        <% } else { %>
-            <a class="nav-link" href="/logout">Log out</a>
-            <% } %>
-         <form class="mb-3" role="search" action="/listing" method="GET">
-    <input class="form-control mb-2 search-input" type="search" name="q" placeholder="Search Destinations">
-    <button class="btn bg-primary search-btn w-100" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i> Search
-    </button>
-</form>
-        </div>
+    <% } else { %>
+        <a class="nav-link" href="/logout">Log out</a>
+    <% } %>
+    <form class="mb-3" role="search" action="/listing" method="GET">
+        <input class="form-control mb-2 search-input" type="search" name="q" placeholder="Search Destinations">
+        <button class="btn search-btn w-100" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+    </form>
+</div>
 
 <script>
     function toggleSidebar() {
