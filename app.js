@@ -15,18 +15,17 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-<<<<<<< HEAD
 const dbUrl = process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/wanderlust";
 const SECRET = process.env.SECRET || "dev_session_secret_change_me";
-=======
-const dbUrl = process.env.ATLASDB_URL;
->>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
 
 main().then(()=>{
     console.log("connected to DB");
@@ -46,38 +45,70 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// Security hardening
+app.disable('x-powered-by');
+app.use(mongoSanitize());
+app.use(helmet());
+// Content Security Policy for external assets (Mapbox, Cloudinary, etc.)
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "https://api.mapbox.com",
+        "https://cdn.jsdelivr.net" 
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://api.mapbox.com",
+        "https://cdn.jsdelivr.net",
+        "https://fonts.googleapis.com"
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "blob:",
+        "https://res.cloudinary.com",
+        "https://images.unsplash.com"
+      ],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      connectSrc: ["'self'", "https://api.mapbox.com", "https://events.mapbox.com"],
+      objectSrc: ["'none'"],
+      frameAncestors: ["'self'"]
+    }
+  })
+);
+// Basic rate limiter for all routes
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+});
+app.use(limiter);
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-<<<<<<< HEAD
         secret: SECRET,
     },
     touchAfter: 24 * 3600,
 });
 store.on("error", (err)=>{
-=======
-        secret: process.env.SECRET,
-    },
-    touchAfter: 24 * 3600,
-});
-store.on("error", ()=>{
->>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
     console.log("ERROR IN MONGO SESSION STORE", err);
 })
 
 const sessionOption = {
     store,
-<<<<<<< HEAD
     secret: SECRET,
-=======
-    secret: process.env.SECRET,
->>>>>>> 44d911548869a24f5bd8274637c8522d32a1e2de
     resave: false,
     saveUninitialized: true,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        sameSite: process.env.NODE_ENV === 'production' ? 'lax' : 'lax',
+        secure: process.env.NODE_ENV === 'production',
     },
 }
 
